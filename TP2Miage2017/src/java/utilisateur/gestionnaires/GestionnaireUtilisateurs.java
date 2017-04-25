@@ -34,11 +34,18 @@ public class GestionnaireUtilisateurs {
     }  
   
     public Utilisateur creeUtilisateur(String nom, String prenom, String login) {  
-        Utilisateur u = new Utilisateur(nom, prenom, login);  
+        Utilisateur u = new Utilisateur(nom, prenom, login);
         em.persist(u);  
         return u;  
     }  
   
+    public void supprimerUtilisateur(String login){
+        Query q = em.createQuery("delete from Utilisateur u where u.login= :login"); 
+        q.setParameter("login", login);
+        q.executeUpdate();
+
+    }
+    
     public Collection<Utilisateur> getAllUsers() {  
         // Exécution d'une requête équivalente à un select *  
         Query q = em.createQuery("select u from Utilisateur u");  

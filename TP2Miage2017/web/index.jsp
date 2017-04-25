@@ -37,12 +37,12 @@
                 <li><a href="ServletUser?action=creerUtilisateursDeTest">Créer 4 utilisateurs de test</a></li>  
       
                 <li>Créer un utilisateur</li>  
-                <form action="ServletUser" method="get">  
+                <form action="ServletUser?creeUtilisateur" method="get">  
                     Nom : <input type="text" name="nom"/><br>  
                     Prénom : <input type="text" name="prenom"/><br>  
                     Login : <input type="text" name="login"/><br>  
                     <!-- Astuce pour passer des paramètres à une servlet depuis un formulaire JSP !-->  
-                    <input type="hidden" name="action" value="creerUnUtilisateur"/>  
+                    <input type="hidden" name="action" value="creeUtilisateur"/>  
                     <input type="submit" value="Créer l'utilisateur" name="submit"/>  
                 </form>  
       
@@ -51,6 +51,13 @@
                     login : <input type="text" name="login"/><br>  
                     <input type="hidden" name="action" value="chercherParLogin"/>  
                     <input type="submit" value="Chercher" name="submit"/>  
+                </form>  
+                
+                 <li>Supprimer un utilisateur</li>  
+                <form action="ServletUser?supprimerUtilisateur" method="get">  
+                    login : <input type="text" name="login"/><br>  
+                    <input type="hidden" name="action" value="supprimerUtilisateur"/>  
+                    <input type="submit" value="Supprimer" name="submit"/>  
                 </form>  
       
       

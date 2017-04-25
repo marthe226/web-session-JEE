@@ -56,6 +56,18 @@ public class ServletUser extends HttpServlet {
                 request.setAttribute("listeDesUsers", liste);  
                 forwardTo = "index.jsp?action=listerLesUtilisateurs";  
                 message = "Liste des utilisateurs";  
+            } else if (action.equals("creeUtilisateur")) {
+                gestionnaireUtilisateurs.creeUtilisateur(request.getParameter("nom"), request.getParameter("prenom"),request.getParameter("login"));
+                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();  
+                request.setAttribute("listeDesUsers", liste);  
+                forwardTo = "index.jsp?action=listerLesUtilisateurs";  
+                message = "Liste des utilisateurs";  
+            } else if (action.equals("supprimerUtilisateur")) {
+                 gestionnaireUtilisateurs.supprimerUtilisateur(request.getParameter("login"));
+                 Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();  
+                request.setAttribute("listeDesUsers", liste);  
+                forwardTo = "index.jsp?action=listerLesUtilisateurs";  
+                message = "Liste des utilisateurs";  
             } else {  
                 forwardTo = "index.jsp?action=todo";  
                 message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";  
