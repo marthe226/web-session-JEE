@@ -46,6 +46,24 @@ public class GestionnaireUtilisateurs {
 
     }
     
+     public void updateUtilisateur(String nom, String prenom, String login) {  
+        Query q = em.createQuery("update Utilisateur u set u.login=login and u.nom=nom and u.prenom=prenom"); 
+        q.setParameter("login", login);
+        q.setParameter("nom", nom);
+        q.setParameter("prenom", prenom);
+        q.executeUpdate();
+      
+    }  
+    
+    
+   public Collection <Utilisateur> getUsersbylogin(String login) {  
+        // Exécution d'une requête équivalente à un select *  
+        Query q = em.createQuery("select u from Utilisateur u where u.login= :login"); 
+        q.setParameter("login", login);
+        Collection<Utilisateur> users= q.getResultList();  
+        return users;
+    } 
+    
     public Collection<Utilisateur> getAllUsers() {  
         // Exécution d'une requête équivalente à un select *  
         Query q = em.createQuery("select u from Utilisateur u");  

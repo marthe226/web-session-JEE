@@ -47,14 +47,14 @@
                 </form>  
       
                 <li>Afficher les détails d'un utilisateur</li>  
-                <form action="ServletUser" method="get">  
+                <form action="ServletUser?action=rechercherUtilisateur" method="POST">  
                     login : <input type="text" name="login"/><br>  
                     <input type="hidden" name="action" value="chercherParLogin"/>  
                     <input type="submit" value="Chercher" name="submit"/>  
                 </form>  
                 
                  <li>Supprimer un utilisateur</li>  
-                <form action="ServletUser?supprimerUtilisateur" method="get">  
+                <form action="ServletUser?action=updateUtilisateur" method="POST">  
                     login : <input type="text" name="login"/><br>  
                     <input type="hidden" name="action" value="supprimerUtilisateur"/>  
                     <input type="submit" value="Supprimer" name="submit"/>  
