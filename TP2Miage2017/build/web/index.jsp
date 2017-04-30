@@ -36,6 +36,13 @@
             <ol>  
                 <li><a href="ServletUser?action=creerUtilisateursDeTest">Créer 4 utilisateurs de test</a></li>  
       
+                 <li>pagination</li>  
+                <form action="ServletUser?pagination10" method="get">  
+                    <!--login : <input type="text" name="login"/><br>  !-->
+                    <input type="hidden" name="action" value="supprimerUtilisateur"/>  
+                    <input type="submit" value="paginer" name="submit"/>  
+                </form> 
+                 
                 <li>Créer un utilisateur</li>  
                 <form action="ServletUser?creeUtilisateur" method="get">  
                     Nom : <input type="text" name="nom"/><br>  
@@ -53,8 +60,9 @@
                     <input type="submit" value="Chercher" name="submit"/>  
                 </form>  
                 
+                
                  <li>Supprimer un utilisateur</li>  
-                <form action="ServletUser?action=updateUtilisateur" method="POST">  
+                <form action="ServletUser?supprimerUtilisateur" method="POST">  
                     login : <input type="text" name="login"/><br>  
                     <input type="hidden" name="action" value="supprimerUtilisateur"/>  
                     <input type="submit" value="Supprimer" name="submit"/>  
@@ -62,7 +70,7 @@
       
       
                 <li>Modifier les détails d'un utilisateur :</li>  
-                <form action="ServletUser" method="get">  
+                <form action="ServletUser?action=updateUtilisateur" method="POST">  
                     Login : <input type="text" name="login"/><br>  
                     Nom : <input type="text" name="nom"/><br>  
                     Prénom : <input type="text" name="prenom"/><br>  

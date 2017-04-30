@@ -46,14 +46,24 @@ public class GestionnaireUtilisateurs {
 
     }
     
-     public void updateUtilisateur(String nom, String prenom, String login) {  
-        Query q = em.createQuery("update Utilisateur u set u.login=login and u.nom=nom and u.prenom=prenom"); 
+     public void updateUtilisateur(String login, String nom, String prenom) {  
+      
+        Query q = em.createQuery("update Utilisateur u set u.lastname = :nom,  u.firstname = :prenom where u.login= :login");
         q.setParameter("login", login);
         q.setParameter("nom", nom);
         q.setParameter("prenom", prenom);
         q.executeUpdate();
       
-    }  
+    } 
+     
+   public Collection <Utilisateur> pagination10(){
+       Query query_all = em.createQuery("select u From Utilisteur u order by u.lastname");
+       Collection <Utilisateur> all_user = query_all.getResultList();
+       Query ten_user= em.createQuery("select u from Utilisateur u where u in : ids");
+       ten_user.setParameter("ids", all_user);
+       Collection <Utilisateur> page_user = query_ten.getResultList();
+       return  userList;
+   }  
     
     
    public Collection <Utilisateur> getUsersbylogin(String login) {  

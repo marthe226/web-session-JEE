@@ -44,34 +44,76 @@ public class ServletUser extends HttpServlet {
         String message = "";  
   
         if (action != null) {  
-            if (action.equals("listerLesUtilisateurs")) { 
-               // Collection<Utilisateur> liste= GestionnaireUtilisateurs.
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();  
-                request.setAttribute("listeDesUsers", liste);  
-                forwardTo = "index.jsp?action=listerLesUtilisateurs";  
-                message = "Liste des utilisateurs";  
-            } else if (action.equals("creerUtilisateursDeTest")) {  
-                gestionnaireUtilisateurs.creerUtilisateursDeTest();  
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();  
-                request.setAttribute("listeDesUsers", liste);  
-                forwardTo = "index.jsp?action=listerLesUtilisateurs";  
-                message = "Liste des utilisateurs";  
-            } else if (action.equals("creeUtilisateur")) {
-                gestionnaireUtilisateurs.creeUtilisateur(request.getParameter("nom"), request.getParameter("prenom"),request.getParameter("login"));
-                Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();  
-                request.setAttribute("listeDesUsers", liste);  
-                forwardTo = "index.jsp?action=listerLesUtilisateurs";  
-                message = "Liste des utilisateurs";  
-            } else if (action.equals("supprimerUtilisateur")) {
-                 gestionnaireUtilisateurs.supprimerUtilisateur(request.getParameter("login"));
-                 Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();  
-                request.setAttribute("listeDesUsers", liste);  
-                forwardTo = "index.jsp?action=listerLesUtilisateurs";  
-                message = "Liste des utilisateurs";  
-            } else {  
-                forwardTo = "index.jsp?action=todo";  
-                message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";  
-            }  
+            switch (action) {
+                case "listerLesUtilisateurs":
+                    {
+                        // Collection<Utilisateur> liste= GestionnaireUtilisateurs.
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
+                        request.setAttribute("listeDesUsers", liste);
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                        message = "Liste des utilisateurs";
+                        break;
+                    }
+                case "pagination10":
+                    {
+                         // Collection<Utilisateur> liste= GestionnaireUtilisateurs.
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.pagination10();
+                        request.setAttribute("listeDesUsers", liste);
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                        message = "Liste des utilisateurs 10 par 10";
+                        break;
+                    }    
+                case "creerUtilisateursDeTest":
+                    {
+                        gestionnaireUtilisateurs.creerUtilisateursDeTest();
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
+                        request.setAttribute("listeDesUsers", liste);
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                        message = "Liste des utilisateurs";
+                        break;
+                    }
+                case "creeUtilisateur":
+                    {
+                        gestionnaireUtilisateurs.creeUtilisateur(request.getParameter("nom"), request.getParameter("prenom"),request.getParameter("login"));
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
+                        request.setAttribute("listeDesUsers", liste);
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                        message = "Liste des utilisateurs";
+                        break;
+                    }  
+                case "supprimerUtilisateur":
+                    {
+                        gestionnaireUtilisateurs.supprimerUtilisateur(request.getParameter("login"));
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
+                        request.setAttribute("listeDesUsers", liste);
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                        message = "Liste des utilisateurs";
+                        break;
+                    }
+                      case "rechercherUtilisateur":
+                    {
+                        //gestionnaireUtilisateurs.getUsersbylogin(); 
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.getUsersbylogin(request.getParameter("login"));
+                        request.setAttribute("listeDesUsers", liste);
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                        message = "Rechercher un utilisateur par login !";
+                        break;
+                    }
+                case "updateUtilisateur":
+                    {
+                        //gestionnaireUtilisateurs.getUsersbylogin(); 
+                       gestionnaireUtilisateurs.updateUtilisateur(request.getParameter("login"),request.getParameter("nom"), request.getParameter("prenom"));
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();  
+                        request.setAttribute("listeDesUsers", liste);  
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";  
+                        message = "modification utilisateurs"; 
+                        break;
+                    }
+                default:
+                    forwardTo = "index.jsp?action=todo";
+                    message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
+                    break;
+            }
         }  
   
         RequestDispatcher dp = request.getRequestDispatcher(forwardTo + "&message=" + message);  
