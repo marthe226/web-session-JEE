@@ -28,18 +28,17 @@
       
             <h2>Menu de gestion des utilisateurs</h2>  
             <ul>  
-                <li><a href="ServletUser?action=listerLesUtilisateurs">Afficher/raffraichir la liste de tous les utilisateurs</a></li>  
+                <li><a href="ServletUser?action=listerLesUtilisateurs">Afficher la liste de tous les utilisateurs</a></li>  
                 <p>  
             </ul>  
-                <h2>Liste des fonctionnalités à implémenter dans la Servlet (note : après chaque action cette page sera  
-                    rappelée par la servlet avec la liste des utilisateurs raffraichie et un message de confirmation</h2>  
+                <h2> Inscription</h2>  
             <ol>  
                 <li><a href="ServletUser?action=creerUtilisateursDeTest">Créer 4 utilisateurs de test</a></li>  
       
                  <li>pagination</li>  
                 <form action="ServletUser?pagination10" method="get">  
                     <!--login : <input type="text" name="login"/><br>  !-->
-                    <input type="hidden" name="action" value="supprimerUtilisateur"/>  
+                    <input type="hidden" name="action" value="pagination10"/>  
                     <input type="submit" value="paginer" name="submit"/>  
                 </form> 
                  
@@ -112,5 +111,15 @@
                 </table>  
       
             </c:if>  
+       <form action="ServletUser?prev" method="get">  
+                    <!--login : <input type="text" name="login"/><br>  !-->
+                    <input type="hidden" name="action" value="prev"/>  
+                    <input type="submit" value="prev" name="submit"/>  
+                </form> 
+       <form action="ServletUser?next" method="get">  
+                    <!--login : <input type="text" name="login"/><br>  !-->
+                    <input type="hidden" name="action" value="next"/>  
+                    <input type="submit" value="next" name="submit"/>  
+                </form> 
         </body>  
     </html>  

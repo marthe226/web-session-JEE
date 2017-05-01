@@ -8,6 +8,7 @@ package utilisateur.gestionnaires;
 import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import utilisateurs.modele.Utilisateur;
@@ -24,8 +25,29 @@ public class GestionnaireUtilisateurs {
      // Ici injection de code : on n'initialise pas. L'entity manager sera créé  
     // à partir du contenu de persistence.xml  
     @PersistenceContext  
-    private EntityManager em;  
-  
+    private EntityManager em;
+ 
+    public int initpagination = 0 ;
+    public int paginationmax = 0 ;
+
+    public int getInitpagination() {
+        return initpagination;
+    }
+
+    public int getPaginationmax() {
+        return paginationmax;
+    }
+
+    public void setInitpagination(int initpagination) {
+        this.initpagination = initpagination;
+    }
+
+    public void setPaginationmax(int paginationmax) {
+        this.paginationmax = paginationmax;
+    }
+   
+    
+
     public void creerUtilisateursDeTest() {  
         creeUtilisateur("John", "Lennon", "jlennon");  
         creeUtilisateur("Paul", "Mac Cartney", "pmc");  
@@ -56,14 +78,31 @@ public class GestionnaireUtilisateurs {
       
     } 
      
-   public Collection <Utilisateur> pagination10(){
-       Query query_all = em.createQuery("select u From Utilisteur u order by u.lastname");
-       Collection <Utilisateur> all_user = query_all.getResultList();
-       Query ten_user= em.createQuery("select u from Utilisateur u where u in : ids");
-       ten_user.setParameter("ids", all_user);
-       Collection <Utilisateur> page_user = query_ten.getResultList();
-       return  userList;
+   public Collection <Utilisateur> pagination10(int first){
+          Query q = em.createQuery("select u from Utilisateur u");  
+          q.setMaxResults(10); 
+          q.setFirstResult(first);
+          q.setFlushMode(FlushModeType.AUTO); 
+          q.setFlushMode(FlushModeType.COMMIT); 
+         return q.getResultList();
    }  
+   
+   public  Collection <Utilisateur> precedent(){
+          this.setInitpagination(this.getPaginationmax()-10);
+          int first = this.getInitpagination();
+          this.setPaginationmax(this.getPaginationmax()-10);
+          Collection <Utilisateur> prev =this.pagination10(first);
+          return prev ; 
+   }  
+   
+    public Collection <Utilisateur> suivant(){
+          this.setInitpagination(this.getPaginationmax()+10);
+          int first = this.getInitpagination();
+          this.setPaginationmax(this.getPaginationmax()+10);
+          Collection <Utilisateur> next =this.pagination10(first);
+          return next;
+   }  
+   
     
     
    public Collection <Utilisateur> getUsersbylogin(String login) {  

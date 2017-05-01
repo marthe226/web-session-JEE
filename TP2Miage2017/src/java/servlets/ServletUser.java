@@ -57,19 +57,40 @@ public class ServletUser extends HttpServlet {
                 case "pagination10":
                     {
                          // Collection<Utilisateur> liste= GestionnaireUtilisateurs.
-                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.pagination10();
+                        gestionnaireUtilisateurs.pagination10(0);
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.pagination10(0);
                         request.setAttribute("listeDesUsers", liste);
                         forwardTo = "index.jsp?action=listerLesUtilisateurs";
                         message = "Liste des utilisateurs 10 par 10";
                         break;
                     }    
+                case "next":
+                    {
+                        
+                        gestionnaireUtilisateurs.suivant();
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.suivant();
+                        request.setAttribute("listeDesUsers", liste);
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                        message = "Suivant";
+                        break;
+                    }   
+                 case "prev":
+                    {
+                        
+                        gestionnaireUtilisateurs.precedent();
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.precedent();
+                        request.setAttribute("listeDesUsers", liste);
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                        message = "Suivant";
+                        break;
+                    }   
                 case "creerUtilisateursDeTest":
                     {
                         gestionnaireUtilisateurs.creerUtilisateursDeTest();
                         Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
                         request.setAttribute("listeDesUsers", liste);
                         forwardTo = "index.jsp?action=listerLesUtilisateurs";
-                        message = "Liste des utilisateurs";
+                        message = "Utilisateus tests crées !";
                         break;
                     }
                 case "creeUtilisateur":
@@ -78,7 +99,7 @@ public class ServletUser extends HttpServlet {
                         Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
                         request.setAttribute("listeDesUsers", liste);
                         forwardTo = "index.jsp?action=listerLesUtilisateurs";
-                        message = "Liste des utilisateurs";
+                        message = "Utilisateur crée !";
                         break;
                     }  
                 case "supprimerUtilisateur":
@@ -87,7 +108,7 @@ public class ServletUser extends HttpServlet {
                         Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
                         request.setAttribute("listeDesUsers", liste);
                         forwardTo = "index.jsp?action=listerLesUtilisateurs";
-                        message = "Liste des utilisateurs";
+                        message = "Utilisateur supprimé !";
                         break;
                     }
                       case "rechercherUtilisateur":
