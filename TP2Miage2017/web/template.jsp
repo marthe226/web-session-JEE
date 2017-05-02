@@ -10,7 +10,13 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"/>
-
+        
+         <ulien>
+  <lien><a href="index.html">Home</a></lien>
+  <lien><a href="news.asp">News</a></lien>
+  <lien><a href="contact.asp">Contact</a></lien>
+  <lien><a href="about.asp">About</a></lien>
+        </ulien> 
 	
 	<h1>${param.title}</h1>
 

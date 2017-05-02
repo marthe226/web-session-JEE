@@ -28,26 +28,21 @@ public class GestionnaireUtilisateurs {
     private EntityManager em;
  
     public int initpagination = 0 ;
-    public int paginationmax = 0 ;
+   
 
     public int getInitpagination() {
         return initpagination;
     }
 
-    public int getPaginationmax() {
-        return paginationmax;
-    }
-
     public void setInitpagination(int initpagination) {
+        if (initpagination>= 0){
         this.initpagination = initpagination;
+        } else {
+           this.initpagination = 0; 
+        }
     }
 
-    public void setPaginationmax(int paginationmax) {
-        this.paginationmax = paginationmax;
-    }
-   
-    
-
+ 
     public void creerUtilisateursDeTest() {  
         creeUtilisateur("John", "Lennon", "jlennon");  
         creeUtilisateur("Paul", "Mac Cartney", "pmc");  
@@ -88,17 +83,15 @@ public class GestionnaireUtilisateurs {
    }  
    
    public  Collection <Utilisateur> precedent(){
-          this.setInitpagination(this.getPaginationmax()-10);
+          this.setInitpagination(this.initpagination-5);
           int first = this.getInitpagination();
-          this.setPaginationmax(this.getPaginationmax()-10);
           Collection <Utilisateur> prev =this.pagination10(first);
           return prev ; 
    }  
    
-    public Collection <Utilisateur> suivant(){
-          this.setInitpagination(this.getPaginationmax()+10);
+    public Collection <Utilisateur> suivant(){  
+        this.setInitpagination(this.initpagination+5);
           int first = this.getInitpagination();
-          this.setPaginationmax(this.getPaginationmax()+10);
           Collection <Utilisateur> next =this.pagination10(first);
           return next;
    }  
