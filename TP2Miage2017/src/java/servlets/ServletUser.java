@@ -57,8 +57,8 @@ public class ServletUser extends HttpServlet {
                 case "pagination10":
                     {
                          // Collection<Utilisateur> liste= GestionnaireUtilisateurs.
-                        gestionnaireUtilisateurs.pagination10(0);
-                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.pagination10(0);
+                        gestionnaireUtilisateurs.pagination10(1);
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.pagination10(1);
                         request.setAttribute("listeDesUsers", liste);
                         forwardTo = "index.jsp?action=listerLesUtilisateurs";
                         message = "Liste des utilisateurs 10 par 10";
