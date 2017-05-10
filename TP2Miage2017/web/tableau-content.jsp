@@ -1,34 +1,22 @@
-    <%--  
-        Document   : index  
-        Created on : 16 sept. 2009, 16:54:32  
-        Author     : michel buffa  
-    --%>  
-      
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>  
-    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
-        "http://www.w3.org/TR/html4/loose.dtd">  
-      
-    <!-- Ne pas oublier cette ligne sinon tous les tags de la JSTL seront ignorés ! -->  
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
-
-         <meta name="viewport" content="width=device-width, initial-scale=1">
+<%-- 
+    Document   : newjsptableau-content
+    Created on : 8 mai 2017, 15:11:52
+    Author     : deptinfo
+--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         
-             <!-- Message qui s'affiche lorsque la page est appelé avec un paramètre http message -->  
-            <c:if test="${!empty param['message']}">  
-                <h2>Reçu message : ${param.message}</h2>  
-            </c:if>  
-      
-            <!-- Zone qui affiche les utilisateurs si le paramètre action vaut listerComptes -->  
+           <!-- Zone qui affiche les utilisateurs si le param�tre action vaut listerComptes -->  
+           <form action="ServletUser?action=pagination10" method="POST">  
             <c:if test="${param['action'] == 'listerLesUtilisateurs'}" >  
-               
+                
       
                 <table class="w3-table-all">  
                     <!-- La ligne de titre du tableau des comptes -->  
                     <tr class="w3-green">  
                         <td><b>Login</b></td>  
                         <td><b>Nom</b></td>  
-                        <td><b>Prénom</b></td>  
+                        <td><b>Pr�nom</b></td>  
                     </tr>  
       
                     <!-- Ici on affiche les lignes, une par utilisateur -->  
@@ -45,12 +33,12 @@
                         </tr>  
                     </c:forEach>  
       
-                    <!-- Affichage du solde total dans la dernière ligne du tableau -->  
+                    <!-- Affichage du solde total dans la derni�re ligne du tableau -->  
                     <tr><td><b>TOTAL</b></td><td></td><td><b>${total}</b></td><td></td></tr>  
                 </table>  
       
             </c:if>   
-             <form action="ServletUser?prev" method="get" id="prev">  
+      <form action="ServletUser?prev" method="get" id="prev">  
                     <input type="hidden" name="action" value="prev"/>  
                                     </form> 
        <form action="ServletUser?next" method="get" id="next">  
@@ -58,5 +46,3 @@
        </form>  
             <button type="submit" form="prev" value="Submit">Precedent</button>
             <button type="submit" form="next" value="Submit">Suivant</button>
-        </body>  
-    </html>  

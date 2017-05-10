@@ -96,7 +96,18 @@ public class GestionnaireUtilisateurs {
           return next;
    }  
    
+    public Utilisateur isLoginValid(String firstname, String login) {
+     Query q = em.createQuery("select u from Utilisateur u where u.login= :login and u.firstname= :firstname");
+     q.setParameter("login", login);
+     q.setParameter("firstname", firstname);
+     if(!q.getResultList().isEmpty()){
+         return (Utilisateur) q.getResultList().get(0);
+     }
+     
+     else 
+         return null;
     
+   }
     
    public Collection <Utilisateur> getUsersbylogin(String login) {  
         // Exécution d'une requête équivalente à un select *  

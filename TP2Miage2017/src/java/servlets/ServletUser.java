@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import utilisateur.gestionnaires.GestionnaireUtilisateurs;
 import utilisateurs.modele.Utilisateur;
 
@@ -57,8 +58,8 @@ public class ServletUser extends HttpServlet {
                 case "pagination10":
                     {
                          // Collection<Utilisateur> liste= GestionnaireUtilisateurs.
-                        gestionnaireUtilisateurs.pagination10(1);
-                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.pagination10(1);
+                        gestionnaireUtilisateurs.pagination10(0);
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.pagination10(0);
                         request.setAttribute("listeDesUsers", liste);
                         forwardTo = "index.jsp?action=listerLesUtilisateurs";
                         message = "Liste des utilisateurs 10 par 10";
@@ -130,6 +131,35 @@ public class ServletUser extends HttpServlet {
                         message = "modification utilisateurs"; 
                         break;
                     }
+                case "connexion":
+                {
+                //gestion des sessions
+                Utilisateur utilisateur = gestionnaireUtilisateurs.isLoginValid(request.getParameter("firstname"), request.getParameter("login"));
+                    
+                if(utilisateur!= null)
+                    {
+                        //Collection<Utilisateur> user = gestionnaireUtilisateurs.getAllUsers();
+                        HttpSession session = request.getSession(true);
+                        session.setAttribute("user", utilisateur);   
+                        message = utilisateur.getFirstname()+"connecté";
+                       
+                    }
+                    else 
+                    {
+                        message= "login ou username erroné";
+                        
+                    } 
+                forwardTo = "index.jsp?action=listerLesUtilisateurs"; 
+                     break;
+                }
+                
+                case "deconnexion":
+                {
+                    HttpSession session = request.getSession(true);
+                    session.invalidate();
+                    message= "deconecté";
+                    forwardTo = "index.jsp?action=listerLesUtilisateurs"; 
+                }
                 default:
                     forwardTo = "index.jsp?action=todo";
                     message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
