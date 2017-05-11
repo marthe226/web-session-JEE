@@ -37,56 +37,57 @@ public class ServletUser extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   protected void processRequest(HttpServletRequest request, HttpServletResponse response)  
-            throws ServletException, IOException {  
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         // Pratique pour décider de l'action à faire  
-        String action = request.getParameter("action");  
-        String forwardTo = "";  
-        String message = "";  
-  
-        if (action != null) {  
-            switch (action) {
-                case "listerLesUtilisateurs":
-                    {
+        String action = request.getParameter("action");
+        HttpSession session = request.getSession(true);
+        String forwardTo = "";
+        String message = "";
+
+        if (action != null) {
+            if (!action.equalsIgnoreCase("connexion") && !action.equalsIgnoreCase("creeUtilisateur") && session.getAttribute("user") == null) {
+                forwardTo = "index.jsp?action=connexion";
+                message = "veuillez vous connecter";
+            } else {
+                switch (action) {
+                    case "listerLesUtilisateurs": {
                         // Collection<Utilisateur> liste= GestionnaireUtilisateurs.
                         Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
                         request.setAttribute("listeDesUsers", liste);
                         forwardTo = "index.jsp?action=listerLesUtilisateurs";
                         message = "Liste des utilisateurs";
+
                         break;
                     }
-                case "pagination10":
-                    {
-                         // Collection<Utilisateur> liste= GestionnaireUtilisateurs.
+                    case "pagination10": {
+                        // Collection<Utilisateur> liste= GestionnaireUtilisateurs.
                         gestionnaireUtilisateurs.pagination10(0);
                         Collection<Utilisateur> liste = gestionnaireUtilisateurs.pagination10(0);
                         request.setAttribute("listeDesUsers", liste);
                         forwardTo = "index.jsp?action=listerLesUtilisateurs";
                         message = "Liste des utilisateurs 10 par 10";
                         break;
-                    }    
-                case "next":
-                    {
-                        
+                    }
+                    case "next": {
+
                         gestionnaireUtilisateurs.suivant();
                         Collection<Utilisateur> liste = gestionnaireUtilisateurs.suivant();
                         request.setAttribute("listeDesUsers", liste);
                         forwardTo = "index.jsp?action=listerLesUtilisateurs";
                         message = "Suivant";
                         break;
-                    }   
-                 case "prev":
-                    {
-                        
+                    }
+                    case "prev": {
+
                         gestionnaireUtilisateurs.precedent();
                         Collection<Utilisateur> liste = gestionnaireUtilisateurs.precedent();
                         request.setAttribute("listeDesUsers", liste);
                         forwardTo = "index.jsp?action=listerLesUtilisateurs";
                         message = "Suivant";
                         break;
-                    }   
-                case "creerUtilisateursDeTest":
-                    {
+                    }
+                    case "creerUtilisateursDeTest": {
                         gestionnaireUtilisateurs.creerUtilisateursDeTest();
                         Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
                         request.setAttribute("listeDesUsers", liste);
@@ -94,17 +95,15 @@ public class ServletUser extends HttpServlet {
                         message = "Utilisateus tests crées !";
                         break;
                     }
-                case "creeUtilisateur":
-                    {
-                        gestionnaireUtilisateurs.creeUtilisateur(request.getParameter("nom"), request.getParameter("prenom"),request.getParameter("login"));
+                    case "creeUtilisateur": {
+                        gestionnaireUtilisateurs.creeUtilisateur(request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("login"));
                         Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
                         request.setAttribute("listeDesUsers", liste);
                         forwardTo = "index.jsp?action=listerLesUtilisateurs";
                         message = "Utilisateur crée !";
                         break;
-                    }  
-                case "supprimerUtilisateur":
-                    {
+                    }
+                    case "supprimerUtilisateur": {
                         gestionnaireUtilisateurs.supprimerUtilisateur(request.getParameter("login"));
                         Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
                         request.setAttribute("listeDesUsers", liste);
@@ -112,8 +111,7 @@ public class ServletUser extends HttpServlet {
                         message = "Utilisateur supprimé !";
                         break;
                     }
-                      case "rechercherUtilisateur":
-                    {
+                    case "rechercherUtilisateur": {
                         //gestionnaireUtilisateurs.getUsersbylogin(); 
                         Collection<Utilisateur> liste = gestionnaireUtilisateurs.getUsersbylogin(request.getParameter("login"));
                         request.setAttribute("listeDesUsers", liste);
@@ -121,56 +119,51 @@ public class ServletUser extends HttpServlet {
                         message = "Rechercher un utilisateur par login !";
                         break;
                     }
-                case "updateUtilisateur":
-                    {
+                    case "updateUtilisateur": {
                         //gestionnaireUtilisateurs.getUsersbylogin(); 
-                       gestionnaireUtilisateurs.updateUtilisateur(request.getParameter("login"),request.getParameter("nom"), request.getParameter("prenom"));
-                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();  
-                        request.setAttribute("listeDesUsers", liste);  
-                        forwardTo = "index.jsp?action=listerLesUtilisateurs";  
-                        message = "modification utilisateurs"; 
+                        gestionnaireUtilisateurs.updateUtilisateur(request.getParameter("login"), request.getParameter("nom"), request.getParameter("prenom"));
+                        Collection<Utilisateur> liste = gestionnaireUtilisateurs.getAllUsers();
+                        request.setAttribute("listeDesUsers", liste);
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                        message = "modification utilisateurs";
                         break;
                     }
-                case "connexion":
-                {
-                //gestion des sessions
-                Utilisateur utilisateur = gestionnaireUtilisateurs.isLoginValid(request.getParameter("firstname"), request.getParameter("login"));
-                    
-                if(utilisateur!= null)
-                    {
-                        //Collection<Utilisateur> user = gestionnaireUtilisateurs.getAllUsers();
-                        HttpSession session = request.getSession(true);
-                        session.setAttribute("user", utilisateur);   
-                        message = utilisateur.getFirstname()+"connecté";
-                       
+                    case "connexion": {
+                        //gestion des sessions
+                        Utilisateur utilisateur = gestionnaireUtilisateurs.isLoginValid(request.getParameter("firstname"), request.getParameter("login"));
+
+                        if (utilisateur != null) {
+                            //Collection<Utilisateur> user = gestionnaireUtilisateurs.getAllUsers();
+
+                            session.setAttribute("user", utilisateur);
+                            message = utilisateur.getFirstname() + "connecté";
+
+                        } else {
+                            message = "login ou username erroné";
+
+                        }
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                        break;
                     }
-                    else 
-                    {
-                        message= "login ou username erroné";
-                        
-                    } 
-                forwardTo = "index.jsp?action=listerLesUtilisateurs"; 
-                     break;
+
+                    case "deconnexion": {
+                        session.invalidate();
+                        message = "deconecté";
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                        break;
+                    }
+                    default:
+                        forwardTo = "index.jsp?action=todo";
+                        message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
+                        break;
                 }
-                
-                case "deconnexion":
-                {
-                    HttpSession session = request.getSession(true);
-                    session.invalidate();
-                    message= "deconecté";
-                    forwardTo = "index.jsp?action=listerLesUtilisateurs"; 
-                }
-                default:
-                    forwardTo = "index.jsp?action=todo";
-                    message = "La fonctionnalité pour le paramètre " + action + " est à implémenter !";
-                    break;
             }
-        }  
-  
-        RequestDispatcher dp = request.getRequestDispatcher(forwardTo + "&message=" + message);  
-        dp.forward(request, response);  
+        }
+
+        RequestDispatcher dp = request.getRequestDispatcher(forwardTo + "&message=" + message);
+        dp.forward(request, response);
         // Après un forward, plus rien ne peut être exécuté après !  
-    }  
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
