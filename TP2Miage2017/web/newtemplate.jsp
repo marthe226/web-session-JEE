@@ -28,7 +28,7 @@ Released   : 20140309
 	<div id="header-wrapper">
 	<div id="header" class="container">
 		<div id="logo">
-			<h1><a href="#">TP2 WEB</a></h1>
+			<h1><a href="#"></a></h1>
 		</div>
 		<div id="menu">
 			<ul>
@@ -38,6 +38,12 @@ Released   : 20140309
                                  <li><a href="research.jsp">Recherche</a></li>
                                  <li><a href="deleteuser.jsp">Désinscription</a></li>
                                  <li><a href="update.jsp">Modification</a></li>
+                                 <li><a href="connect.jsp">Connexion</a></li>
+                                 <li><a href="disconnect.jsp">Deconnection</a></li>
+
+                                
+
+
 			</ul>
 		</div>
 	</div>
