@@ -6,17 +6,21 @@
 package utilisateurs.modele;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author deptinfo
  */
-@Entity
+@Entity 
 public class Utilisateur implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,7 +28,16 @@ public class Utilisateur implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String firstname,lastname,login;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<Adresse> adresses; 
+    
+    public Collection<Adresse> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(Collection<Adresse> adresses) {
+        this.adresses = adresses;
+    }
     
 
     public int getId() {
@@ -38,6 +51,7 @@ public class Utilisateur implements Serializable {
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
+        this.adresses = new ArrayList<>();
     }
 
     public String getFirstname() {

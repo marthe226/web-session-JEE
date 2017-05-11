@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import utilisateurs.modele.Adresse;
 import utilisateurs.modele.Utilisateur;
 
 /**
@@ -52,6 +53,8 @@ public class GestionnaireUtilisateurs {
   
     public Utilisateur creeUtilisateur(String nom, String prenom, String login) {  
         Utilisateur u = new Utilisateur(nom, prenom, login);
+        Adresse adresse =new Adresse(55, "Route", 6200, "NICE", "FRANCE");
+        u.getAdresses().add(adresse);
         em.persist(u);  
         return u;  
     }  

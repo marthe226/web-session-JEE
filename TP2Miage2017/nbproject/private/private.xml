@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/deptinfo/Documents/NetBeansProjects/web_projet/TP2Miage2017/web/disconnect-content.jsp</file>
+            <file>file:/C:/Users/deptinfo/Documents/NetBeansProjects/web_projet/TP2Miage2017/src/java/utilisateurs/modele/Utilisateur.java</file>
+            <file>file:/C:/Users/deptinfo/Documents/NetBeansProjects/web_projet/TP2Miage2017/src/java/utilisateurs/modele/Adresse.java</file>
+            <file>file:/C:/Users/deptinfo/Documents/NetBeansProjects/web_projet/TP2Miage2017/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/deptinfo/Documents/NetBeansProjects/web_projet/TP2Miage2017/src/java/utilisateur/gestionnaires/GestionnaireUtilisateurs.java</file>
+            <file>file:/C:/Users/deptinfo/Documents/NetBeansProjects/web_projet/TP2Miage2017/src/java/servlets/ServletUser.java</file>
+        </group>
     </open-files>
 </project-private>

@@ -5,27 +5,53 @@
  */
 package utilisateurs.modele;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
 /**
  *
  * @author deptinfo
  */
+@Entity 
 public class Adresse {
     
     
+   @Id
+   private int id;
    private int numéro ;
    private String nom ;
    private int cdpostal;
    private String ville;
-    private String pays; 
+   private String pays; 
+   //private Collection <Utilisateur>adresses; 
 
-    public Adresse(int numéro, String nom, int cdpostal, String ville, String pays) {
-        this.numéro = numéro;
+    /*@ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public Collection<Utilisateur> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(Collection<Utilisateur> adresses) {
+        this.adresses = adresses;
+    }*/
+   
+    
+
+    public Adresse(int numero, String nom, int cdpostal, String ville, String pays) {
+        this.numéro = numero;
         this.nom = nom;
         this.cdpostal = cdpostal;
         this.ville = ville;
         this.pays = pays;
     }
 
+    public Adresse() {
+       
+    }
     
     
     public int getNuméro() {
