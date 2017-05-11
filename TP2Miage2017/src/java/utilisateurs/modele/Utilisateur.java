@@ -6,6 +6,7 @@
 package utilisateurs.modele;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Utilisateur implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String firstname,lastname,login;
+    private Collection<Adresse> adresses; 
     
 
     public int getId() {

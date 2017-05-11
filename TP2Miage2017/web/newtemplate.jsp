@@ -38,7 +38,9 @@ Released   : 20140309
                                  <li><a href="research.jsp">Recherche</a></li>
                                  <li><a href="deleteuser.jsp">Désinscription</a></li>
                                  <li><a href="update.jsp">Modification</a></li>
-                                 <li><a href="connect.jsp">Connexion/Deconnection</a></li>
+                                 <li><a href="connect.jsp">Connexion</a></li>
+                                 <li><a href="disconnect.jsp">Deconnection</a></li>
+
                                 
 
 
