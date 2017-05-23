@@ -25,7 +25,7 @@
       
                     <c:forEach var="u" items="${requestScope['listeDesUsers']}">  
                         <tr class="odd">
-                            <td>${u.login}</td>  
+                        <a href="adresse.jsp"> <p>bonjour </p><td>${u.login}</td>  </a>
                             <td>${u.firstname}</td>  
                             <td>${u.lastname}</td>  
                             <!-- On compte le nombre de users -->  

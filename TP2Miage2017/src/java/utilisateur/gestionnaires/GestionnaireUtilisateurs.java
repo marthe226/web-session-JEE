@@ -125,6 +125,12 @@ public class GestionnaireUtilisateurs {
         Query q = em.createQuery("select u from Utilisateur u");  
         return q.getResultList();  
     }  
+    
+    public Collection <Adresse> afficheAdresse(int id){
+        Query q = em.createQuery("select u.adresses from Utilisateur u where u.id=: iden");
+        q.setParameter("iden", id);
+        return q.getResultList();
+    }
     // Add business logic below. (Right-click in editor and choose  
     // "Insert Code > Add Business Method")  
 }

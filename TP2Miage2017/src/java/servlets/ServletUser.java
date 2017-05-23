@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import utilisateur.gestionnaires.GestionnaireUtilisateurs;
+import utilisateurs.modele.Adresse;
 import utilisateurs.modele.Utilisateur;
 
 /**
@@ -60,6 +61,18 @@ public class ServletUser extends HttpServlet {
 
                         break;
                     }
+                    
+                     case "afficheadresse": {
+                        // Collection<Utilisateur> liste= GestionnaireUtilisateurs.
+                        
+                        Collection<Adresse> liste = gestionnaireUtilisateurs.afficheAdresse();
+                        request.setAttribute("listeDesUsers", liste);
+                        forwardTo = "index.jsp?action=listerLesUtilisateurs";
+                        message = "Liste des adresses";
+
+                        break;
+                    }
+                    
                     case "pagination10": {
                         // Collection<Utilisateur> liste= GestionnaireUtilisateurs.
                         gestionnaireUtilisateurs.pagination10(0);
